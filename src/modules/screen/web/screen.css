@@ -1,0 +1,79 @@
+/* OpenSkiPro Connect - Screen. Colours, font and line height come from the
+   configuration (common.js sets the variables). */
+:root {
+  --bg: #0b1f3a; --text: #fff; --title-bg: #c8dcf5; --title-text: #0b1f3a;
+  --header-text: #9fc3ec; --row1: #000; --row2: #1a1a1a; --hl: #f5c400; --hl-text: #000;
+  --accent: #7fb2ff; --font: Arial, sans-serif; --font-size: 30px; --line: 44px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: var(--font-size);
+       background-size: cover; background-position: center; }
+
+#offline { display: none; position: fixed; right: 8px; bottom: 8px; width: 14px; height: 14px; border-radius: 50%;
+           background: #e00; box-shadow: 0 0 6px #e00; z-index: 50; }
+#message { display: none; position: fixed; inset: 0; z-index: 40; align-items: center; justify-content: center;
+           background: rgba(0, 0, 0, .82); color: #fff; font-size: 6vmin; font-weight: bold; text-align: center; padding: 5vmin; }
+.wait { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; opacity: .6; font-size: 4vmin; }
+
+/* ---------- table rows of every list ---------- */
+.row, .head { display: grid; align-items: center; height: var(--line); }
+.row > div, .head > div { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; padding: 0 .3em; }
+.row:nth-child(odd) { background: var(--row1); }
+.row:nth-child(even) { background: var(--row2); }
+.row.hl { background: var(--hl); color: var(--hl-text); }
+.head { color: var(--header-text); font-weight: bold; height: calc(var(--line) * .8); font-size: .8em; }
+.a-left { text-align: left; } .a-center { text-align: center; } .a-right { text-align: right; }
+.box { display: inline-block; min-width: 1.9em; padding: 0 .15em; text-align: center; font-weight: bold; line-height: calc(var(--line) * .82);
+       background: var(--accent); color: var(--bg); }
+.box.bib { background: #fff; color: #000; }
+.flag { height: .78em; vertical-align: -.06em; margin-right: .3em; box-shadow: 0 0 1px rgba(0, 0, 0, .6); }
+.zone-title { display: flex; align-items: center; height: var(--line); padding: 0 .4em; background: var(--title-bg); color: var(--title-text);
+              font-weight: bold; }
+.zone-title .counters { margin-left: auto; font-size: .8em; }
+.zone-title .counters span { margin-left: 1.6em; }
+
+/* ---------- board: fixed design size, scaled to the window ---------- */
+body.board { overflow: hidden; }
+#canvas { position: absolute; left: 0; top: 0; transform-origin: 0 0; overflow: hidden; }
+.zone { overflow: hidden; }
+.bottom { display: flex; flex-direction: column; justify-content: flex-end; }
+.title { display: flex; align-items: center; height: calc(var(--line) * 1.5); padding: 0 .5em; font-weight: bold; font-size: 1.15em;
+         background: var(--title-bg); color: var(--title-text); }
+.title .t { flex: 1; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.title .clock { margin-left: .6em; font-variant-numeric: tabular-nums; }
+.foot { display: flex; align-items: center; padding: 0 .5em; }
+.foot .text { flex: 1; overflow: hidden; white-space: nowrap; }
+.foot img { max-height: 100%; }
+.run, .row { font-variant-numeric: tabular-nums; }
+
+/* ---------- speaker: an ordinary page ---------- */
+/* a fixed light look, the same columns as the TV */
+body.speaker { --bg: #fff; --text: #111; --title-bg: #1f4e8c; --title-text: #fff; --header-text: #1f4e8c; --row1: #fff;
+               --row2: #eef3fa; --hl: #ffe27a; --hl-text: #000; --accent: #1f4e8c; --font-size: 17px; --line: 30px;
+               font-size: var(--font-size); }
+.speaker .box { background: none; color: inherit; min-width: 0; padding: 0; line-height: inherit; }
+.sp-top { position: sticky; top: 0; z-index: 10; display: flex; align-items: center; gap: .8em; padding: .35em .7em;
+          background: var(--title-bg); color: var(--title-text); font-weight: bold; }
+.sp-top .t { flex: 1; font-size: 1.15em; }
+.sp-top button, .sp-top select { font: inherit; font-size: .8em; padding: .15em .6em; }
+.sp-main { display: flex; gap: .8em; padding: .6em; height: calc(100vh - 2.6em); }
+.sp-left { flex: 0 0 44%; overflow-y: auto; }
+.sp-right { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.sp-scroll { flex: 1; overflow-y: auto; }
+.sp-zone { margin-bottom: .8em; }
+.sp-zone .zone-title { position: sticky; top: 0; z-index: 2; }
+.sp-zone .head { position: sticky; top: var(--line); z-index: 2; background: var(--row1); }
+.sp-zone .row { cursor: pointer; }
+.sp-empty { padding: .3em .5em; opacity: .55; font-style: italic; }
+.speaker .row:nth-child(odd) { background: var(--row1); }
+.speaker .row:nth-child(even) { background: var(--row2); }
+.speaker .row.hl { background: var(--hl); color: var(--hl-text); }
+#card { display: none; position: fixed; inset: 0; z-index: 30; background: rgba(0, 0, 0, .45); align-items: center; justify-content: center; }
+#card .in { background: var(--row1); color: var(--text); min-width: 40%; max-width: 90%; max-height: 90%; overflow: auto; padding: 1em 1.4em;
+            border-top: .4em solid var(--accent); box-shadow: 0 6px 30px rgba(0, 0, 0, .4); }
+#card h2 { margin: 0 0 .5em; }
+#card table { border-collapse: collapse; }
+#card td { padding: .15em 1em .15em 0; }
+#card td:first-child { opacity: .65; }
+@media (max-width: 900px) { .sp-main { flex-direction: column; height: auto; } .sp-left { flex: none; } }
